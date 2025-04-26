@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To the Power of Math!</title>
+
+    <!-- Styling for the client UI -->
+    <style>
+    body {
+        background-color: #222629;
+        font-family: system-ui;
+        margin: 0;
+        padding: 20px;
+    }
+    h1 {
+        color: #FFFFFF;
+        margin-bottom: 20px;
+    }
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    label {
+        color: #86C232;
+        font-size: 20px;
+        margin-bottom: 5px;
+    }
+    input {
+        color: #222629;
+        font-size: 20px;
+        margin-bottom: 15px;
+        width: 120px;
+        padding: 5px;
+        border: none;
+        border-radius: 5px;
+    }
+    button {
+        background-color: #86C232;
+        border: none;
+        color: #FFFFFF;
+        font-size: 20px;
+        font-weight: bold;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #729F2F;
+    }
+    </style>
+
+    <!-- JavaScript for API Call -->
+    <script>
+    const callAPI = (base, exponent) => {
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        const raw = JSON.stringify({ "base": base, "exponent": exponent });
+
+        const requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+
+        fetch("https://ld6isk398a.execute-api.us-west-1.amazonaws.com/dev", requestOptions)
+            .then(response => response.text())
+            .then(result => alert(JSON.parse(result).body))
+            .catch(error => console.log('error', error));
+    }
+    </script>
+</head>
+
+<body>
+    <h1>TO THE POWER OF MATH!</h1>
+    <form>
+        <label for="base">Base number:</label>
+        <input type="text" id="base" placeholder="Enter base">
+
+        <label for="exponent">...to the power of:</label>
+        <input type="text" id="exponent" placeholder="Enter exponent">
+
+        <button type="button" onclick="callAPI(document.getElementById('base').value, document.getElementById('exponent').value)">
+            CALCULATE
+        </button>
+    </form>
+</body>
+</html>
