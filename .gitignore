@@ -1,0 +1,8 @@
+# Ignore Mac system files
+.DS_Store
+
+# Ignore node modules (if you add JS later)
+node_modules/
+
+# Ignore zip files
+*.zip
